@@ -3,6 +3,12 @@
 Премиальный брендинговый сайт-портфолио. Vite + Three.js + GSAP ScrollTrigger + Lenis.
 Один непрерывный «фильм»: объектив → кадр → смартфон → social feed → browser → контакт.
 
+## Онлайн
+
+https://didariganto.github.io/spainov/ — GitHub Pages, ветка `gh-pages`.
+Переключение языка RU / EN в шапке; язык запоминается, по умолчанию берётся из браузера.
+Деплой после правок: `npm run deploy`.
+
 ## Запуск
 
 ```bash
