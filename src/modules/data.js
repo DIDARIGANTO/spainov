@@ -106,6 +106,7 @@ export const PROJECTS = [
   { id: 'web-05', mode: 'web', title: 'Creator Portfolio', type: 'DIGITAL EXPERIENCE · CONCEPT', year: 2026, service: 'WEB', ratio: '4/5', media: 'x05', img: R.r05, pos: '50% 25%' },
 ];
 
+export const WHATSAPP_NUMBER = '77077013718';
 export const WHATSAPP = 'https://wa.me/77077013718?text=' + encodeURIComponent('Ильяс, хочу обсудить проект.');
 export const INSTAGRAM = PROFILE.url;
 export const PHONE = '+7 707 701 3718';

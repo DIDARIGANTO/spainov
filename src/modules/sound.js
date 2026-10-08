@@ -63,6 +63,12 @@ export function initSound(toggleBtn) {
       tone(180, 0.06, { type: 'square', gain: 0.08, to: 60 });
       setTimeout(() => { if (enabled) noise(0.08, { freq: 2200, q: 1, gain: 0.35 }); }, 70);
     },
+    clap() {
+      if (!enabled) return;
+      noise(0.09, { freq: 1800, q: 0.8, gain: 0.9, attack: 0.001 });
+      tone(120, 0.12, { type: 'square', gain: 0.12, to: 40 });
+      setTimeout(() => { if (enabled) noise(0.25, { freq: 600, q: 0.5, gain: 0.25, sweepTo: 150 }); }, 40);
+    },
     tick() {
       if (!enabled) return;
       noise(0.03, { freq: 4000, q: 2, gain: 0.18, attack: 0.001 });

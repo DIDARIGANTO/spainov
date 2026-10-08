@@ -38,10 +38,9 @@ export function initCursor() {
   });
 
   function resolve(target) {
-    const el = target.closest('[data-cursor], .media, .work__item, .sheet__cell');
+    const el = target.closest('[data-cursor], .media');
     if (!el) return '';
     if (el.dataset.cursor) return el.dataset.cursor;
-    if (el.classList.contains('work__item') || el.classList.contains('sheet__cell')) return 'EXPLORE';
     if (el.classList.contains('media')) return 'VIEW';
     return '';
   }

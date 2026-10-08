@@ -21,17 +21,16 @@ npm run preview    # просмотр сборки
 ## Структура
 
 ```
-index.html                 — все сцены (семантическая разметка)
-src/main.js                — прелоадер, Lenis, запуск модулей
-src/modules/lens.js        — 3D-объектив (Three.js), морф LENS → PHONE CAMERA → WINDOW
-src/modules/scenes.js      — все scroll-сцены (GSAP ScrollTrigger)
-src/modules/ui.js          — навигация, магнитные кнопки, контактный лист, портфолио, модалка проекта
-src/modules/media.js       — медиа-плейсхолдеры + загрузка реальных видео
-src/modules/data.js        — РЕЕСТР МЕДИА и ПРОЕКТЫ (здесь меняются данные)
-src/modules/cursor.js      — кастомный курсор (VIEW / OPEN / EXPLORE / DRAG)
-src/modules/sound.js       — синтезированный sound design (по умолчанию OFF)
+index.html                 — все секции: хлопушка, hero, лента, Астана, «Мы верим», хиты, шаги, услуги, заявка, контакты, FAQ, футер
+src/main.js                — загрузка, Lenis, запуск модулей
+src/modules/scenes.js      — кинохлопушка, перетаскиваемые кадры, бегущие строки, счётчики, reveal-анимации
+src/modules/ui.js          — меню, магнитные кнопки, карусель хитов, вкладки услуг, форма → WhatsApp, FAQ
+src/modules/content.js     — услуги, FAQ и привязка фото к секциям (RU/EN)
+src/modules/data.js        — REELS и PROFILE из Instagram
+src/modules/i18n.js        — словарь RU/EN
+src/modules/media.js       — «живые» фото / видео / плейсхолдеры
 src/styles/                — base / ui / scenes
-public/media/              — сюда кладутся реальные видео и фото
+public/media/ig/           — обложки reels и аватар
 ```
 
 ## Медиа из Instagram

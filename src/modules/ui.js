@@ -1,41 +1,20 @@
 /**
- * UI — navigation, menu, magnetic buttons, text splitting,
- * generated grids (contact sheet, social feed, portfolio) and the project scene.
+ * UI — navigation, menu, magnetic pills, hits carousel, services tabs,
+ * booking form (→ WhatsApp), FAQ accordion, tickers.
  */
 import gsap from 'gsap';
-import { PROJECTS, REELS, PROFILE, reelUrl } from './data.js';
+import { REELS, PROFILE, reelUrl, WHATSAPP_NUMBER } from './data.js';
+import { SERVICES, FAQ } from './content.js';
+import { createMedia } from './media.js';
 import { t, LANG } from './i18n.js';
-import { createMedia, mountMedia } from './media.js';
 
-export function splitChars(el) {
-  if (el.dataset.splitDone) return Array.from(el.querySelectorAll('.ch'));
-  const text = el.textContent;
-  el.setAttribute('aria-label', text);
-  el.textContent = '';
-  const chars = [];
-  for (const c of text) {
-    const span = document.createElement('span');
-    span.className = 'ch';
-    span.textContent = c === ' ' ? ' ' : c;
-    span.setAttribute('aria-hidden', 'true');
-    el.appendChild(span);
-    chars.push(span);
-  }
-  el.dataset.splitDone = '1';
-  return chars;
-}
-
-function pad(n, w = 2) { return String(n).padStart(w, '0'); }
-
-const title = (p) => (LANG === 'en' && p.title_en) ? p.title_en : p.title;
+const pad = (n, w = 2) => String(n).padStart(w, '0');
+const title = (r) => (LANG === 'en' && r.title_en) ? r.title_en : r.title;
 
 export function initUI({ lenis, sound, isMobile }) {
   const fine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
-  // ---------- split text ----------
-  document.querySelectorAll('[data-split], [data-letters]').forEach(splitChars);
-
-  // ---------- anchors via Lenis ----------
+  // ---------- anchors ----------
   document.querySelectorAll('a[href^="#"]').forEach((a) => {
     a.addEventListener('click', (e) => {
       const target = document.querySelector(a.getAttribute('href'));
@@ -43,7 +22,7 @@ export function initUI({ lenis, sound, isMobile }) {
       e.preventDefault();
       closeMenu();
       sound.tick();
-      lenis.scrollTo(target, { duration: 1.8, easing: (t) => 1 - Math.pow(1 - t, 4) });
+      lenis.scrollTo(target, { offset: -60, duration: 1.6, easing: (x) => 1 - Math.pow(1 - x, 4) });
     });
   });
 
@@ -51,180 +30,173 @@ export function initUI({ lenis, sound, isMobile }) {
   const menu = document.getElementById('menu');
   const menuBtn = document.getElementById('menuToggle');
   function closeMenu() {
-    menu.classList.remove('is-open');
-    menuBtn.classList.remove('is-open');
-    menuBtn.setAttribute('aria-expanded', 'false');
-    menu.setAttribute('aria-hidden', 'true');
-    document.body.classList.remove('is-locked');
-    lenis.start();
+    menu.classList.remove('is-open'); menuBtn.classList.remove('is-open');
+    menuBtn.setAttribute('aria-expanded', 'false'); menu.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('is-locked'); lenis.start();
   }
   menuBtn.addEventListener('click', () => {
-    const open = !menu.classList.contains('is-open');
-    if (open) {
-      menu.classList.add('is-open');
-      menuBtn.classList.add('is-open');
-      menuBtn.setAttribute('aria-expanded', 'true');
-      menu.setAttribute('aria-hidden', 'false');
-      document.body.classList.add('is-locked');
-      lenis.stop();
-      sound.whoosh();
-    } else closeMenu();
+    if (menu.classList.contains('is-open')) return closeMenu();
+    menu.classList.add('is-open'); menuBtn.classList.add('is-open');
+    menuBtn.setAttribute('aria-expanded', 'true'); menu.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('is-locked'); lenis.stop(); sound.whoosh();
   });
 
-  // ---------- magnetic buttons + light position ----------
+  // ---------- magnetic pills ----------
   if (fine) {
     document.querySelectorAll('[data-magnetic]').forEach((btn) => {
-      const strength = 0.35;
       btn.addEventListener('pointermove', (e) => {
         const r = btn.getBoundingClientRect();
         const x = e.clientX - r.left, y = e.clientY - r.top;
-        btn.style.setProperty('--mx', `${x}px`);
-        btn.style.setProperty('--my', `${y}px`);
-        gsap.to(btn, { x: (x - r.width / 2) * strength, y: (y - r.height / 2) * strength, duration: 0.6, ease: 'power3.out' });
+        btn.style.setProperty('--mx', `${x}px`); btn.style.setProperty('--my', `${y}px`);
+        gsap.to(btn, { x: (x - r.width / 2) * 0.3, y: (y - r.height / 2) * 0.3, duration: 0.6, ease: 'power3.out' });
       });
       btn.addEventListener('pointerleave', () => gsap.to(btn, { x: 0, y: 0, duration: 0.9, ease: 'elastic.out(1, 0.45)' }));
       btn.addEventListener('pointerenter', () => sound.tick());
     });
   }
-  document.querySelectorAll('.btn').forEach((b) => b.addEventListener('click', () => sound.shutter()));
+  document.querySelectorAll('.pill').forEach((b) => b.addEventListener('click', () => sound.shutter()));
 
-  // ---------- hero clock / timecode ----------
-  const clock = document.getElementById('heroClock');
-  const tc = document.getElementById('introTc');
+  // ---------- timecode ----------
+  const tc = document.getElementById('heroTc');
   let frame = 0;
   setInterval(() => {
     frame = (frame + 1) % 24;
     const d = new Date();
-    if (clock) clock.textContent = `${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}:${pad(frame)}`;
-    if (tc) tc.textContent = `00:00:${pad(d.getSeconds() % 60)}:${pad(frame)}`;
+    if (tc) tc.textContent = `${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}:${pad(frame)}`;
   }, 1000 / 24);
+  const cd = document.getElementById('clapDate');
+  if (cd) { const d = new Date(); cd.textContent = `${pad(d.getDate())}.${pad(d.getMonth() + 1)}.${d.getFullYear()}`; }
 
-  // ---------- SOCIAL FEED ----------
-  const feedGrid = document.getElementById('feedGrid');
-  if (feedGrid) {
-    const tones = ['warm', 'mono', 'cool', 'mono', 'warm', 'cool', 'mono', 'warm', 'cool'];
-    for (let i = 0; i < 9; i++) {
-      const cell = document.createElement('div');
-      cell.className = 'feed__cell';
-      const r = REELS[(i * 4 + 1) % REELS.length];
-      const m = createMedia(`feed-${i}`, '3/4', tones[i], r.img, '50% 30%');
-      cell.appendChild(m);
-      feedGrid.appendChild(cell);
-    }
-    const hl = document.getElementById('feedHl');
-    if (hl) PROFILE.highlights.forEach((h) => {
-      const sp = document.createElement('span');
-      sp.innerHTML = `<img src="${h.img}" alt=""><em>${h.name}</em>`;
-      sp.querySelector('em').style.fontStyle = 'normal';
-      hl.appendChild(sp);
+  // ---------- tickers ----------
+  const fill = (el, text, n = 8) => { if (!el) return; for (let i = 0; i < n; i++) { const s = document.createElement('span'); s.textContent = text; el.appendChild(s); } };
+  fill(document.getElementById('ticker1'), t('ticker.1'), 10);
+  const tags = ['REELS', 'SHORT FORM', 'PRODUCT', 'LIFESTYLE', 'EVENTS', 'BUSINESS', 'PEOPLE', 'SMM', 'WEB', 'STRATEGY', 'CONTENT', 'VISUAL'];
+  const ribbon = document.getElementById('ticker2');
+  if (ribbon) for (let k = 0; k < 3; k++) tags.forEach((x) => { const s = document.createElement('span'); s.textContent = x; ribbon.appendChild(s); });
+
+  // ---------- HITS carousel ----------
+  const track = document.getElementById('hitsTrack');
+  const scroller = document.getElementById('hitsScroller');
+  if (track) {
+    REELS.forEach((r, i) => {
+      const a = document.createElement('article');
+      a.className = 'hit';
+      a.style.setProperty('--tilt', `${(i % 2 ? 1 : -1) * (1 + (i % 3))}deg`);
+      const m = document.createElement('a');
+      m.className = 'hit__media'; m.href = reelUrl(r); m.target = '_blank'; m.rel = 'noopener'; m.dataset.cursor = 'VIEW';
+      m.appendChild(createMedia(`hit-${r.id}`, '4/5', 'mono', r.img, '50% 30%'));
+      m.insertAdjacentHTML('beforeend', `<span class="hit__num">${pad(i + 1)}</span><span class="hit__play"></span>`);
+      const likes = r.likes >= 10 ? `<i>♥ ${r.likes}</i>` : '';
+      a.innerHTML = `
+        <div class="hit__title"><b>${title(r)}</b>${likes}</div>
+        <div class="hit__meta tech">${r.type}</div>
+        <a class="hit__link" href="${reelUrl(r)}" target="_blank" rel="noopener" data-cursor="OPEN">${t('hits.open')} →</a>`;
+      a.prepend(m);
+      track.appendChild(a);
     });
+    const end = document.createElement('article');
+    end.className = 'hit hit--end';
+    end.innerHTML = `<div class="hit__end"><h3>${t('hits.end.l1')}<em>${t('hits.end.l2')}</em></h3><a class="pill" href="${PROFILE.url}" target="_blank" rel="noopener" data-cursor="OPEN"><span>${t('hits.end.cta')}</span></a></div>`;
+    track.appendChild(end);
+    document.getElementById('hitsTotal').textContent = pad(REELS.length);
+
+    const cur = document.getElementById('hitsCur');
+    const bar = document.getElementById('hitsBar');
+    const update = () => {
+      const max = scroller.scrollWidth - scroller.clientWidth;
+      const p = max > 0 ? scroller.scrollLeft / max : 0;
+      cur.textContent = pad(Math.min(REELS.length, 1 + Math.round(p * (REELS.length - 1))));
+      bar.style.width = `${10 + p * 90}%`;
+    };
+    scroller.addEventListener('scroll', update, { passive: true });
+    update();
+    // drag to scroll on desktop
+    let down = false, sx = 0, sl = 0, moved = false;
+    scroller.addEventListener('pointerdown', (e) => { if (e.pointerType === 'touch') return; down = true; moved = false; sx = e.clientX; sl = scroller.scrollLeft; scroller.classList.add('is-dragging'); });
+    window.addEventListener('pointermove', (e) => { if (!down) return; const dx = e.clientX - sx; if (Math.abs(dx) > 5) moved = true; scroller.scrollLeft = sl - dx; });
+    window.addEventListener('pointerup', () => { down = false; scroller.classList.remove('is-dragging'); });
+    scroller.addEventListener('click', (e) => { if (moved) { e.preventDefault(); e.stopPropagation(); } }, true);
+    // vertical wheel → horizontal when hovering the carousel (desktop only)
+    scroller.addEventListener('wheel', (e) => {
+      if (isMobile) return;
+      const max = scroller.scrollWidth - scroller.clientWidth;
+      const atEdge = (e.deltaY < 0 && scroller.scrollLeft <= 0) || (e.deltaY > 0 && scroller.scrollLeft >= max - 1);
+      if (atEdge || Math.abs(e.deltaX) > Math.abs(e.deltaY)) return;
+      e.preventDefault();
+      scroller.scrollLeft += e.deltaY;
+    }, { passive: false });
   }
 
-  // ---------- PORTFOLIO ----------
-  const grid = document.getElementById('workGrid');
-  const modes = document.getElementById('modes');
-  const ink = document.getElementById('modesInk');
-  let mode = 'film';
-  let current = [];
-
-  function renderGrid(animate = true) {
-    current = PROJECTS.filter((p) => p.mode === mode);
-    grid.innerHTML = '';
-    current.forEach((p, i) => {
-      const item = document.createElement('article');
-      item.className = 'work__item';
-      item.dataset.ratio = p.ratio;
-      item.dataset.index = i;
-      item.style.setProperty('--ar', p.ratio);
-      const media = createMedia(p.media, p.ratio, p.tone, p.img, p.pos);
-      const info = document.createElement('div');
-      info.className = 'work__info';
-      const likes = p.likes >= 10 ? `<span class="tech">♥ ${p.likes}</span>` : '';
-      info.innerHTML = `
-        <div class="top"><span class="tech">${pad(i + 1)} / ${pad(current.length)}</span><span class="tech">${p.year}</span></div>
-        <div><h3>${title(p)}</h3><div class="meta"><span class="tech">${p.type}</span><span class="tech tech--dim">${p.service}</span>${likes}</div></div>`;
-      const cap = document.createElement('div');
-      cap.className = 'work__cap';
-      cap.innerHTML = `<span>${title(p)}</span><span class="tech tech--dim">${p.type}${p.likes >= 10 ? ` · ♥ ${p.likes}` : ''}</span>`;
-      item.append(media, info, cap);
-      item.addEventListener('click', () => openScene(i));
-      grid.appendChild(item);
+  // ---------- SERVICES tabs ----------
+  const list = document.getElementById('servList');
+  const ctaText = document.getElementById('servCtaText');
+  const servCta = document.getElementById('servCta');
+  let tab = 'mobile';
+  function renderServices(animate = true) {
+    const s = SERVICES[tab];
+    list.innerHTML = '';
+    s.items.forEach((it) => {
+      const el = document.createElement('div');
+      el.className = 'mi';
+      el.innerHTML = `<div class="mi__name">${it.n}</div><div class="mi__price">${t('serv.ask')}</div><div class="mi__desc">${it.d}</div><div class="mi__meta tech">${it.m}</div>`;
+      list.appendChild(el);
     });
-    const items = grid.querySelectorAll('.work__item');
-    if (animate) {
-      gsap.fromTo(items, { opacity: 0, y: 40, scale: 0.98 }, { opacity: 1, y: 0, scale: 1, duration: 1, stagger: 0.06, ease: 'power3.out', overwrite: true });
-    } else gsap.set(items, { opacity: 1, y: 0 });
+    ctaText.textContent = t('serv.cta', { tab: s.label });
+    servCta.href = waLink(`${LANG === 'en' ? 'Ilyas, I would like to order: ' : 'Ильяс, хочу заказать: '}${s.label}`);
+    if (animate) gsap.fromTo(list.children, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.6, stagger: 0.05, ease: 'power3.out', overwrite: true });
   }
-
-  function moveInk(btn) {
-    if (!ink || !btn) return;
-    ink.style.width = `${btn.offsetWidth}px`;
-    ink.style.transform = `translateX(${btn.offsetLeft - 4}px)`;
-  }
-
-  modes.querySelectorAll('.mode').forEach((btn) => {
-    btn.addEventListener('click', () => {
-      if (btn.dataset.mode === mode) return;
-      mode = btn.dataset.mode;
-      modes.querySelectorAll('.mode').forEach((b) => { b.classList.toggle('is-active', b === btn); b.setAttribute('aria-selected', String(b === btn)); });
-      moveInk(btn);
-      sound.tick();
-      renderGrid(true);
-    });
-  });
-  renderGrid(false);
-  requestAnimationFrame(() => moveInk(modes.querySelector('.mode.is-active')));
-  window.addEventListener('resize', () => moveInk(modes.querySelector('.mode.is-active')));
-
-  // ---------- PROJECT SCENE ----------
-  const scene = document.getElementById('scene');
-  const sceneMedia = document.getElementById('sceneMedia');
-  let sceneIndex = 0;
-
-  function fillScene(i) {
-    const p = current[i];
-    sceneIndex = i;
-    sceneMedia.innerHTML = '';
-    const m = createMedia(p.media, p.ratio, p.tone, p.img, p.pos);
-    m.style.setProperty('--ar', p.ratio);
-    sceneMedia.appendChild(m);
-    const link = document.getElementById('sceneLink');
-    if (link) {
-      if (p.href) { link.href = p.href; link.style.display = ''; link.textContent = p.likes >= 10 ? t('scene.open.stats', { likes: p.likes, comments: p.comments }) : t('scene.open'); }
-      else link.style.display = 'none';
-    }
-    document.getElementById('sceneIndex').textContent = `${pad(i + 1)} / ${pad(current.length)}`;
-    document.getElementById('sceneTitle').textContent = title(p);
-    document.getElementById('sceneType').textContent = p.type;
-    document.getElementById('sceneYear').textContent = String(p.year);
-    document.getElementById('sceneService').textContent = p.service;
-    gsap.fromTo(m, { clipPath: 'inset(50% 0 50% 0)', scale: 1.1 }, { clipPath: 'inset(0% 0 0% 0)', scale: 1, duration: 1, ease: 'power4.out' });
-    gsap.fromTo('#sceneTitle', { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, ease: 'power3.out', delay: 0.15 });
-  }
-  function openScene(i) {
-    fillScene(i);
-    scene.classList.add('is-open');
-    scene.setAttribute('aria-hidden', 'false');
-    document.body.classList.add('is-locked');
-    lenis.stop();
-    sound.shutter();
-  }
-  function closeScene() {
-    scene.classList.remove('is-open');
-    scene.setAttribute('aria-hidden', 'true');
-    document.body.classList.remove('is-locked');
-    lenis.start();
+  document.querySelectorAll('#servTabs .tab').forEach((b) => b.addEventListener('click', () => {
+    if (b.dataset.tab === tab) return;
+    tab = b.dataset.tab;
+    document.querySelectorAll('#servTabs .tab').forEach((x) => x.classList.toggle('is-active', x === b));
     sound.tick();
-  }
-  document.getElementById('sceneClose').addEventListener('click', closeScene);
-  document.getElementById('scenePrev').addEventListener('click', () => { sound.tick(); fillScene((sceneIndex - 1 + current.length) % current.length); });
-  document.getElementById('sceneNext').addEventListener('click', () => { sound.tick(); fillScene((sceneIndex + 1) % current.length); });
-  window.addEventListener('keydown', (e) => {
-    if (!scene.classList.contains('is-open')) return;
-    if (e.key === 'Escape') closeScene();
-    if (e.key === 'ArrowRight') fillScene((sceneIndex + 1) % current.length);
-    if (e.key === 'ArrowLeft') fillScene((sceneIndex - 1 + current.length) % current.length);
+    renderServices();
+  }));
+  renderServices(false);
+
+  // ---------- BOOKING → WhatsApp ----------
+  const form = document.getElementById('bookForm');
+  const done = document.getElementById('formDone');
+  form.querySelectorAll('.seg input').forEach((inp) => inp.addEventListener('change', () => {
+    form.querySelectorAll('.seg').forEach((s) => s.classList.toggle('is-active', s.contains(inp)));
+    sound.tick();
+  }));
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const fd = new FormData(form);
+    const name = (fd.get('name') || '').toString().trim();
+    const phone = (fd.get('phone') || '').toString().trim();
+    if (!name || !phone) { form.classList.add('is-error'); form.querySelector(name ? '[name="phone"]' : '[name="name"]').focus(); sound.tick(); return; }
+    form.classList.remove('is-error');
+    const dirKey = fd.get('dir');
+    const dir = SERVICES[dirKey] ? SERVICES[dirKey].label : dirKey;
+    const msg = t('form.msg', { dir, format: fd.get('format') || '—', name, phone, date: fd.get('date') || '—', wish: (fd.get('wish') || '—').toString().trim() || '—' });
+    window.open(waLink(msg), '_blank', 'noopener');
+    done.hidden = false;
+    gsap.fromTo(done, { opacity: 0 }, { opacity: 1, duration: 0.6 });
+    sound.shutter();
   });
 
-  return { closeMenu, renderGrid };
+  // ---------- FAQ ----------
+  const faq = document.getElementById('faqList');
+  FAQ.forEach((item, i) => {
+    const el = document.createElement('div');
+    el.className = 'qa';
+    el.innerHTML = `<button class="qa__q" type="button" aria-expanded="false" data-cursor="OPEN"><span>${item.q}</span><i></i></button><div class="qa__a"><p>${item.a}</p></div>`;
+    const btn = el.querySelector('.qa__q'); const ans = el.querySelector('.qa__a');
+    btn.addEventListener('click', () => {
+      const open = el.classList.toggle('is-open');
+      btn.setAttribute('aria-expanded', String(open));
+      gsap.to(ans, { height: open ? 'auto' : 0, duration: 0.6, ease: 'power3.inOut' });
+      sound.tick();
+    });
+    faq.appendChild(el);
+    if (i === 0) { el.classList.add('is-open'); btn.setAttribute('aria-expanded', 'true'); gsap.set(ans, { height: 'auto' }); }
+  });
+
+  return { closeMenu };
+}
+
+function waLink(text) {
+  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
 }
