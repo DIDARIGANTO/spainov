@@ -78,6 +78,7 @@ export function initUI({ lenis, sound, isMobile }) {
   const track = document.getElementById('hitsTrack');
   const scroller = document.getElementById('hitsScroller');
   if (track) {
+    const ghost = document.createElement('div'); ghost.className = 'hits__ghost'; ghost.textContent = 'SHOWREEL'; document.getElementById('hits').prepend(ghost);
     REELS.forEach((r, i) => {
       const a = document.createElement('article');
       a.className = 'hit';
@@ -138,6 +139,7 @@ export function initUI({ lenis, sound, isMobile }) {
     s.items.forEach((it) => {
       const el = document.createElement('div');
       el.className = 'mi';
+      if (it.img) el.dataset.img = it.img;
       el.innerHTML = `<div class="mi__name">${it.n}</div><div class="mi__price">${t('serv.ask')}</div><div class="mi__desc">${it.d}</div><div class="mi__meta tech">${it.m}</div>`;
       list.appendChild(el);
     });

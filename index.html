@@ -42,6 +42,9 @@
     <div class="cursor__dot"></div>
     <div class="cursor__ring"><span class="cursor__label" id="cursorLabel"></span></div>
   </div>
+  <div class="leaks" aria-hidden="true"><i></i><i></i><i></i></div>
+  <div class="rail" id="rail" aria-hidden="true"><div class="rail__track" id="railTrack"></div></div>
+  <div class="stage" id="stage" aria-hidden="true"><canvas id="gl"></canvas></div>
   <div class="grain" aria-hidden="true"></div>
 
   <!-- ============ NAV ============ -->
@@ -52,7 +55,10 @@
       <a href="#book" data-cursor="OPEN" data-i18n="nav.book">ЗАЯВКА</a>
       <a href="#contacts" data-cursor="OPEN" data-i18n="nav.contacts">КОНТАКТЫ</a>
     </nav>
-    <a class="nav__logo" href="#top" data-cursor="OPEN"><span class="nav__mark"></span>SPAINOV<sup>®</sup></a>
+    <div class="nav__center">
+      <a class="nav__logo" href="#top" data-cursor="OPEN"><span class="nav__mark"></span>SPAINOV<sup>®</sup></a>
+      <div class="nav__tc tech"><span id="navScene">SC.01</span><i>●</i><span id="navTc">00:00:00:00</span></div>
+    </div>
     <div class="nav__right">
       <div class="lang" role="group" aria-label="Language">
         <button type="button" data-lang="ru" data-cursor="OPEN">RU</button>
@@ -92,14 +98,15 @@
     <span id="top"></span>
 
     <!-- ============ HERO ============ -->
-    <section class="hero" id="hero">
+    <section class="hero" id="hero" data-sc="01" data-scene="title">
       <div class="hero__meta tech">
-        <span data-i18n="hero.m1">АСТАНА</span><i>✦</i><span data-i18n="hero.m2">С 2019</span><i>✦</i><span data-i18n="hero.m3">МОБИЛОГРАФ · SMM · WEB</span>
+        <span data-i18n="hero.m1">ЭПИЗОД 01</span><i>✦</i><span data-i18n="hero.m2">АСТАНА · С 2019</span><i>✦</i><span data-i18n="hero.m3">МОБИЛОГРАФ · SMM · WEB</span>
       </div>
       <h1 class="hero__title">
-        <span class="hero__l1" data-i18n="hero.l1">Снимаю так,</span>
-        <span class="hero__l2"><em data-i18n="hero.l2">чтобы запомнили</em><svg class="hero__swash" viewBox="0 0 400 24" preserveAspectRatio="none" aria-hidden="true"><path d="M4 16 C 80 4, 160 22, 240 10 S 360 6, 396 14" /></svg></span>
+        <span class="hero__l1" data-i18n="hero.l1">Ваш бизнес — это фильм.</span>
+        <span class="hero__l2"><em data-i18n="hero.l2">Я его снимаю.</em><svg class="hero__swash" viewBox="0 0 400 24" preserveAspectRatio="none" aria-hidden="true"><path d="M4 16 C 80 4, 160 22, 240 10 S 360 6, 396 14" /></svg></span>
       </h1>
+      <p class="hero__sub" data-i18n="hero.sub">Один человек — три мира. Камера, соцсети, сайты. 4000+ видео, 200+ проектов, 7 лет в SMM.</p>
       <div class="hero__cta">
         <a class="pill pill--primary pill--lg" href="https://wa.me/77077013718?text=%D0%98%D0%BB%D1%8C%D1%8F%D1%81%2C%20%D1%85%D0%BE%D1%87%D1%83%20%D0%BE%D0%B1%D1%81%D1%83%D0%B4%D0%B8%D1%82%D1%8C%20%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82." target="_blank" rel="noopener" data-cursor="OPEN" data-magnetic><i class="ico ico--cam"></i><span data-i18n="hero.cta1">НАЧАТЬ ПРОЕКТ</span></a>
         <a class="pill pill--ghost pill--lg" href="#hits" data-cursor="OPEN" data-magnetic><span data-i18n="hero.cta2">СМОТРЕТЬ РАБОТЫ</span></a>
@@ -131,7 +138,7 @@
     <div class="ticker ticker--line" aria-hidden="true"><div class="ticker__track" id="ticker1"></div></div>
 
     <!-- ============ CITY ============ -->
-    <section class="city" id="city">
+    <section class="city" id="city" data-sc="02" data-scene="location">
       <div class="media city__bg" data-media="city-bg" data-ratio="9/16"></div>
       <div class="city__inner">
         <h2 class="city__title"><span data-i18n="city.l1">Астана.</span><em data-i18n="city.l2">Spainov.</em></h2>
@@ -143,7 +150,7 @@
     <div class="ribbon" aria-hidden="true"><div class="ribbon__track" id="ticker2"></div></div>
 
     <!-- ============ BELIEF ============ -->
-    <section class="belief" id="about">
+    <section class="belief" id="about" data-sc="03" data-scene="manifesto">
       <div class="belief__head">
         <h2 class="h2"><span data-i18n="belief.l1">Мы верим, что контент —</span><em data-i18n="belief.l2">это внимание</em></h2>
         <div class="belief__text">
@@ -165,7 +172,7 @@
     </section>
 
     <!-- ============ HITS ============ -->
-    <section class="hits" id="hits">
+    <section class="hits" id="hits" data-sc="04" data-scene="showreel">
       <div class="hits__head">
         <h2 class="h2"><span data-i18n="hits.l1">Хиты</span> <em>Spainov</em></h2>
         <div class="hits__progress tech"><span id="hitsCur">01</span><i><b id="hitsBar"></b></i><span id="hitsTotal">12</span></div>
@@ -177,7 +184,7 @@
     </section>
 
     <!-- ============ STEPS ============ -->
-    <section class="steps" id="steps">
+    <section class="steps" id="steps" data-sc="05" data-scene="onset">
       <div class="steps__head">
         <span class="tech steps__eyebrow" data-i18n="steps.eyebrow">СЪЁМКА НА ВАШЕЙ ЛОКАЦИИ</span>
         <h2 class="h2 h2--xl"><span>Spainov</span><em data-i18n="steps.l2">едет к вам</em></h2>
@@ -193,7 +200,7 @@
     </section>
 
     <!-- ============ SERVICES (menu) ============ -->
-    <section class="menu-s" id="services">
+    <section class="menu-s" id="services" data-sc="06" data-scene="production">
       <div class="menu-s__head">
         <h2 class="h2"><span data-i18n="serv.l1">Мои</span> <em data-i18n="serv.l2">услуги</em></h2>
         <p class="lead" data-i18n="serv.sub">Три направления — один человек. Выберите раздел и напишите в один клик.</p>
@@ -211,7 +218,7 @@
     </section>
 
     <!-- ============ BOOKING ============ -->
-    <section class="book" id="book">
+    <section class="book" id="book" data-sc="07" data-scene="casting">
       <div class="book__intro">
         <span class="tech steps__eyebrow" data-i18n="book.eyebrow">ЗАЯВКА НА СЪЁМКУ</span>
         <h2 class="h2"><span data-i18n="book.l1">Оставьте</span><em data-i18n="book.l2">мне место в календаре</em></h2>
@@ -251,7 +258,7 @@
     </section>
 
     <!-- ============ CONTACTS (locations) ============ -->
-    <section class="where" id="contacts">
+    <section class="where" id="contacts" data-sc="08" data-scene="contacts">
       <h2 class="h2"><span data-i18n="where.l1">Где меня</span> <em data-i18n="where.l2">найти</em></h2>
       <div class="where__grid">
         <article class="loc">
@@ -287,7 +294,7 @@
     </section>
 
     <!-- ============ FAQ ============ -->
-    <section class="faq" id="faq">
+    <section class="faq" id="faq" data-sc="09" data-scene="qa">
       <h2 class="h2"><span data-i18n="faq.l1">Частые</span><em data-i18n="faq.l2">вопросы</em></h2>
       <div class="faq__list" id="faqList"></div>
     </section>
@@ -295,6 +302,7 @@
 
   <!-- ============ FOOTER ============ -->
   <footer class="footer">
+    <div class="fin" id="fin"><span class="fin__word">FIN<i>.</i></span><span class="tech" data-i18n="fin.sub">КОНЕЦ ФИЛЬМА · НАЧАЛО ВАШЕГО</span></div>
     <div class="footer__big" aria-hidden="true"><em>Spainov</em></div>
     <div class="footer__cols">
       <div><span class="tech" data-i18n="ft.k1">АСТАНА</span><b data-i18n="ft.v1">Съёмка · SMM · сайты</b><a href="tel:+77077013718">+7 707 701 3718</a></div>

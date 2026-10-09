@@ -35,10 +35,22 @@ const sound = initSound(document.getElementById('soundToggle'));
 initMedia(document);
 initCursor();
 initUI({ lenis, sound, isMobile });
-const scenes = initScenes({ sound, lenis, isMobile });
-
+let lens = null;
+async function bootLens() {
+  try {
+    const { createLens } = await import('./modules/lens.js');
+    lens = createLens(document.getElementById('gl'), { isMobile });
+    await lens.ready;
+  } catch (err) {
+    console.warn('[spainov] 3D disabled:', err);
+    document.getElementById('stage').style.display = 'none';
+  }
+}
 const fontsReady = document.fonts ? document.fonts.ready : Promise.resolve();
-fontsReady.then(() => scenes.playIntro(() => { lenis.start(); ScrollTrigger.refresh(); }));
+Promise.all([bootLens(), fontsReady]).then(() => {
+  const scenes = initScenes({ sound, lenis, isMobile, lens });
+  scenes.playIntro(() => { lenis.start(); ScrollTrigger.refresh(); });
+});
 
 let rt;
 window.addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(() => ScrollTrigger.refresh(), 200); });
