@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>ИЛЬЯС SPAINOV — Мобилография / SMM / Web · Астана</title>
-  <meta name="description" content="Ильяс Спаинов — мобилограф, SMM и digital в Астане. 4000+ отснятых видео, 200+ проектов, 7 лет в SMM." />
+  <title>Ilyas Spainov — Mobilegrapher, SMM & Web · Astana</title>
+  <meta name="description" content="Ilyas Spainov — мобилограф, SMM и digital в Астане. 4000+ видео, 200+ проектов, 7 лет в SMM." />
   <meta name="theme-color" content="#080808" />
-  <meta property="og:title" content="ILYAS SPAINOV — Mobilegraphy / SMM / Web" />
+  <meta property="og:title" content="Ilyas Spainov — Mobilegrapher, SMM & Web" />
   <meta property="og:description" content="4000+ videos · 200+ projects · 7 years in SMM · Astana" />
   <meta property="og:type" content="website" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
@@ -16,301 +16,169 @@
 </head>
 <body data-sound="off">
 
-  <!-- ============ CLAPPERBOARD INTRO ============ -->
-  <div class="clap" id="clap" aria-hidden="true">
-    <div class="clap__board" id="clapBoard">
-      <div class="clap__stick clap__stick--top" id="clapStick"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
-      <div class="clap__stick clap__stick--base"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
-      <div class="clap__slate">
-        <div class="clap__row clap__row--title"><span class="clap__k">PROD.</span><b class="clap__v">SPAINOV<sup>®</sup></b></div>
-        <div class="clap__grid">
-          <div><span class="clap__k">SCENE</span><b class="clap__v">01</b></div>
-          <div><span class="clap__k">TAKE</span><b class="clap__v" id="clapTake">01</b></div>
-          <div><span class="clap__k">ROLL</span><b class="clap__v">A7</b></div>
-        </div>
-        <div class="clap__row"><span class="clap__k">DIRECTOR</span><b class="clap__v">ILYAS SPAINOV</b></div>
-        <div class="clap__row"><span class="clap__k">CAMERA</span><b class="clap__v">MOBILE · 4K · 24FPS</b></div>
-        <div class="clap__row"><span class="clap__k">LOCATION</span><b class="clap__v" data-i18n="clap.location">АСТАНА · KZ</b></div>
-        <div class="clap__foot"><span class="clap__k">DATE</span><b class="clap__v" id="clapDate">2026</b><span class="clap__k">SOUND</span><b class="clap__v">SYNC</b></div>
-      </div>
-    </div>
-    <div class="clap__hint tech" data-i18n="clap.hint">ХЛОПУШКА · МОТОР</div>
+  <!-- PRELOADER -->
+  <div class="loader" id="loader" aria-hidden="true">
+    <div class="loader__top tech"><span>ILYAS SPAINOV</span><span data-i18n="load.role">МОБИЛОГРАФ · SMM · WEB</span></div>
+    <div class="loader__count" id="loaderCount">0</div>
+    <div class="loader__bottom tech"><span data-i18n="load.city">АСТАНА, KZ</span><span id="loaderTime">--:--</span></div>
+    <div class="loader__bar"><i id="loaderBar"></i></div>
   </div>
 
-  <!-- ============ CURSOR / GRAIN ============ -->
-  <div class="cursor" id="cursor" aria-hidden="true">
-    <div class="cursor__dot"></div>
-    <div class="cursor__ring"><span class="cursor__label" id="cursorLabel"></span></div>
-  </div>
-  <div class="leaks" aria-hidden="true"><i></i><i></i><i></i></div>
-  <div class="rail" id="rail" aria-hidden="true"><div class="rail__track" id="railTrack"></div></div>
+  <div class="cursor" id="cursor" aria-hidden="true"><div class="cursor__dot"></div><div class="cursor__ring"><span class="cursor__label" id="cursorLabel"></span></div></div>
   <div class="stage" id="stage" aria-hidden="true"><canvas id="gl"></canvas></div>
   <div class="grain" aria-hidden="true"></div>
 
-  <!-- ============ NAV ============ -->
+  <!-- NAV -->
   <header class="nav" id="nav">
+    <a class="nav__logo" href="#top" data-cursor="OPEN">Ilyas Spainov<sup>®</sup></a>
     <nav class="nav__links" aria-label="Main">
-      <a href="#hits" data-cursor="OPEN" data-i18n="nav.hits">ХИТЫ</a>
-      <a href="#services" data-cursor="OPEN" data-i18n="nav.services">УСЛУГИ</a>
-      <a href="#book" data-cursor="OPEN" data-i18n="nav.book">ЗАЯВКА</a>
-      <a href="#contacts" data-cursor="OPEN" data-i18n="nav.contacts">КОНТАКТЫ</a>
+      <a href="#work" data-cursor="OPEN"><i>01</i><span data-i18n="nav.work">Работы</span></a>
+      <a href="#services" data-cursor="OPEN"><i>02</i><span data-i18n="nav.services">Услуги</span></a>
+      <a href="#about" data-cursor="OPEN"><i>03</i><span data-i18n="nav.about">Обо мне</span></a>
+      <a href="#contact" data-cursor="OPEN"><i>04</i><span data-i18n="nav.contact">Контакт</span></a>
     </nav>
-    <div class="nav__center">
-      <a class="nav__logo" href="#top" data-cursor="OPEN"><span class="nav__mark"></span>SPAINOV<sup>®</sup></a>
-      <div class="nav__tc tech"><span id="navScene">SC.01</span><i>●</i><span id="navTc">00:00:00:00</span></div>
-    </div>
     <div class="nav__right">
-      <div class="lang" role="group" aria-label="Language">
-        <button type="button" data-lang="ru" data-cursor="OPEN">RU</button>
-        <button type="button" data-lang="en" data-cursor="OPEN">EN</button>
-      </div>
-      <button class="sound" id="soundToggle" type="button" aria-pressed="false" data-cursor="OPEN" title="Sound">
-        <span class="sound__bars"><i></i><i></i><i></i><i></i></span>
-      </button>
-      <a class="pill pill--primary pill--nav" href="https://wa.me/77077013718?text=%D0%98%D0%BB%D1%8C%D1%8F%D1%81%2C%20%D1%85%D0%BE%D1%87%D1%83%20%D0%BE%D0%B1%D1%81%D1%83%D0%B4%D0%B8%D1%82%D1%8C%20%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82." target="_blank" rel="noopener" data-cursor="OPEN"><i class="ico ico--cam"></i><span data-i18n="nav.cta">НАЧАТЬ ПРОЕКТ</span></a>
-      <button class="nav__menu" id="menuToggle" type="button" aria-label="Menu" aria-expanded="false" data-cursor="OPEN"><span></span><span></span></button>
+      <span class="nav__time tech"><span data-i18n="nav.astana">АСТАНА</span> <b id="navTime">--:--</b></span>
+      <div class="lang"><button type="button" data-lang="ru" data-cursor="OPEN">RU</button><button type="button" data-lang="en" data-cursor="OPEN">EN</button></div>
+      <button class="sound" id="soundToggle" type="button" aria-pressed="false" data-cursor="OPEN" title="Sound"><span class="sound__bars"><i></i><i></i><i></i><i></i></span></button>
+      <a class="btn btn--solid" href="https://wa.me/77077013718?text=%D0%98%D0%BB%D1%8C%D1%8F%D1%81%2C%20%D1%85%D0%BE%D1%87%D1%83%20%D0%BE%D0%B1%D1%81%D1%83%D0%B4%D0%B8%D1%82%D1%8C%20%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82." target="_blank" rel="noopener" data-cursor="OPEN" data-magnetic><span data-i18n="nav.cta">Обсудить проект</span></a>
+      <button class="nav__menu" id="menuToggle" type="button" aria-label="Menu" aria-expanded="false"><span></span><span></span></button>
     </div>
   </header>
-
   <div class="menu" id="menu" aria-hidden="true">
     <div class="menu__inner">
-      <a href="#hits" data-cursor="OPEN"><i>01</i><span data-i18n="nav.hits">ХИТЫ</span></a>
-      <a href="#services" data-cursor="OPEN"><i>02</i><span data-i18n="nav.services">УСЛУГИ</span></a>
-      <a href="#book" data-cursor="OPEN"><i>03</i><span data-i18n="nav.book">ЗАЯВКА</span></a>
-      <a href="#contacts" data-cursor="OPEN"><i>04</i><span data-i18n="nav.contacts">КОНТАКТЫ</span></a>
+      <a href="#work"><i>01</i><span data-i18n="nav.work">Работы</span></a>
+      <a href="#services"><i>02</i><span data-i18n="nav.services">Услуги</span></a>
+      <a href="#about"><i>03</i><span data-i18n="nav.about">Обо мне</span></a>
+      <a href="#contact"><i>04</i><span data-i18n="nav.contact">Контакт</span></a>
     </div>
-    <div class="menu__foot">
-      <a href="tel:+77077013718">+7 707 701 3718</a>
-      <div class="lang lang--menu"><button type="button" data-lang="ru">RU</button><button type="button" data-lang="en">EN</button></div>
-    </div>
+    <div class="menu__foot"><a href="tel:+77077013718">+7 707 701 3718</a><div class="lang lang--menu"><button type="button" data-lang="ru">RU</button><button type="button" data-lang="en">EN</button></div></div>
   </div>
-
-  <!-- rotating badge -->
-  <a class="badge" id="badge" href="https://wa.me/77077013718?text=%D0%98%D0%BB%D1%8C%D1%8F%D1%81%2C%20%D1%85%D0%BE%D1%87%D1%83%20%D0%BE%D0%B1%D1%81%D1%83%D0%B4%D0%B8%D1%82%D1%8C%20%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82." target="_blank" rel="noopener" data-cursor="OPEN" aria-label="WhatsApp">
-    <svg viewBox="0 0 120 120" aria-hidden="true">
-      <defs><path id="badgeCircle" d="M60,60 m-44,0 a44,44 0 1,1 88,0 a44,44 0 1,1 -88,0" /></defs>
-      <text class="badge__text"><textPath href="#badgeCircle" data-i18n="badge.text">SPAINOV · АСТАНА · МОБИЛОГРАФИЯ · SMM · WEB · </textPath></text>
-    </svg>
-    <span class="badge__core"><i></i></span>
-  </a>
 
   <main id="main">
     <span id="top"></span>
 
-    <!-- ============ HERO ============ -->
-    <section class="hero" id="hero" data-sc="01" data-scene="title">
-      <div class="hero__meta tech">
-        <span data-i18n="hero.m1">ЭПИЗОД 01</span><i>✦</i><span data-i18n="hero.m2">АСТАНА · С 2019</span><i>✦</i><span data-i18n="hero.m3">МОБИЛОГРАФ · SMM · WEB</span>
+    <!-- HERO -->
+    <section class="hero" id="hero">
+      <div class="hero__status"><i></i><span data-i18n="hero.status">Открыт для проектов · 2026</span></div>
+      <h1 class="hero__name" aria-label="Ilyas Spainov"><span class="line"><span data-split>ILYAS</span></span><span class="line line--r"><span data-split>SPAINOV</span></span></h1>
+      <div class="hero__row">
+        <p class="hero__role"><span data-i18n="hero.role1">Мобилограф, SMM</span><br><span data-i18n="hero.role2">и digital-создатель из Астаны.</span></p>
+        <p class="hero__desc" data-i18n="hero.desc">Снимаю, развиваю соцсети и делаю сайты для ресторанов, брендов и людей. Один человек — три направления, одна картинка.</p>
+        <div class="hero__scroll tech"><span data-i18n="hero.scroll">Скролл</span><i></i></div>
       </div>
-      <h1 class="hero__title">
-        <span class="hero__l1" data-i18n="hero.l1">Ваш бизнес — это фильм.</span>
-        <span class="hero__l2"><em data-i18n="hero.l2">Я его снимаю.</em><svg class="hero__swash" viewBox="0 0 400 24" preserveAspectRatio="none" aria-hidden="true"><path d="M4 16 C 80 4, 160 22, 240 10 S 360 6, 396 14" /></svg></span>
-      </h1>
-      <p class="hero__sub" data-i18n="hero.sub">Один человек — три мира. Камера, соцсети, сайты. 4000+ видео, 200+ проектов, 7 лет в SMM.</p>
-      <div class="hero__cta">
-        <a class="pill pill--primary pill--lg" href="https://wa.me/77077013718?text=%D0%98%D0%BB%D1%8C%D1%8F%D1%81%2C%20%D1%85%D0%BE%D1%87%D1%83%20%D0%BE%D0%B1%D1%81%D1%83%D0%B4%D0%B8%D1%82%D1%8C%20%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82." target="_blank" rel="noopener" data-cursor="OPEN" data-magnetic><i class="ico ico--cam"></i><span data-i18n="hero.cta1">НАЧАТЬ ПРОЕКТ</span></a>
-        <a class="pill pill--ghost pill--lg" href="#hits" data-cursor="OPEN" data-magnetic><span data-i18n="hero.cta2">СМОТРЕТЬ РАБОТЫ</span></a>
-      </div>
-
-      <div class="hero__stage" id="heroStage">
-        <div class="hero__hint tech"><i class="ico ico--hand"></i><span data-i18n="hero.hint">ПОТЯНИ КАДР</span></div>
-        <div class="strip" id="heroStrip">
-          <div class="strip__holes" aria-hidden="true"></div>
-          <div class="strip__frames">
-            <div class="media strip__frame" data-media="hero-a" data-ratio="9/16"></div>
-            <div class="media strip__frame" data-media="hero-b" data-ratio="9/16"></div>
-            <div class="media strip__frame" data-media="hero-c" data-ratio="9/16"></div>
-          </div>
-          <div class="strip__holes" aria-hidden="true"></div>
-          <div class="strip__ui"><span class="tech">REC ●</span><span class="tech" id="heroTc">00:00:00:00</span><span class="tech">A7 · 24FPS</span></div>
-        </div>
-        <!-- draggable floating frames -->
-        <div class="float" data-float style="--x: 4%; --y: 6%; --r: -6deg" data-cursor="DRAG"><div class="media" data-media="fl-1" data-ratio="1/1"></div><span class="float__tag tech">REELS</span></div>
-        <div class="float" data-float style="--x: 78%; --y: 2%; --r: 5deg" data-cursor="DRAG"><div class="media" data-media="fl-2" data-ratio="1/1"></div><span class="float__tag tech">EVENTS</span></div>
-        <div class="float float--sm" data-float style="--x: 86%; --y: 44%; --r: -4deg" data-cursor="DRAG"><div class="media" data-media="fl-3" data-ratio="1/1"></div><span class="float__tag tech">PRODUCT</span></div>
-        <div class="float float--sm" data-float style="--x: 0%; --y: 52%; --r: 7deg" data-cursor="DRAG"><div class="media" data-media="fl-4" data-ratio="1/1"></div><span class="float__tag tech">PEOPLE</span></div>
-        <div class="float float--xs" data-float style="--x: 14%; --y: 84%; --r: -9deg" data-cursor="DRAG"><div class="media" data-media="fl-5" data-ratio="1/1"></div><span class="float__tag tech">BUSINESS</span></div>
-        <div class="float float--xs" data-float style="--x: 72%; --y: 86%; --r: 6deg" data-cursor="DRAG"><div class="media" data-media="fl-6" data-ratio="1/1"></div><span class="float__tag tech">LIFESTYLE</span></div>
+      <div class="hero__media">
+        <div class="media hero__img" data-media="hero" data-ratio="16/9"></div>
+        <div class="hero__caption tech"><span data-i18n="hero.cap1">За камерой · Астана</span><span>4K · 24FPS</span></div>
       </div>
     </section>
 
-    <!-- ============ TICKER ============ -->
-    <div class="ticker ticker--line" aria-hidden="true"><div class="ticker__track" id="ticker1"></div></div>
+    <!-- MARQUEE -->
+    <div class="marquee" aria-hidden="true"><div class="marquee__track" id="marquee"></div></div>
 
-    <!-- ============ CITY ============ -->
-    <section class="city" id="city" data-sc="02" data-scene="location">
-      <div class="media city__bg" data-media="city-bg" data-ratio="9/16"></div>
-      <div class="city__inner">
-        <h2 class="city__title"><span data-i18n="city.l1">Астана.</span><em data-i18n="city.l2">Spainov.</em></h2>
-        <p class="city__text" data-i18n="city.text">С 2019 года снимаю Астану и её бизнес так, как видит камера в руках, которой доверяют: честно, близко и с кинематографичным светом. Один человек — три мира: камера, соцсети, сайты.</p>
-      </div>
+    <!-- NUMBERS -->
+    <section class="numbers">
+      <div class="num"><b><span data-count="4000">0</span>+</b><span class="tech" data-i18n="num.1">отснятых видео</span></div>
+      <div class="num"><b><span data-count="200">0</span>+</b><span class="tech" data-i18n="num.2">проектов</span></div>
+      <div class="num"><b><span data-count="7">0</span></b><span class="tech" data-i18n="num.3">лет в SMM</span></div>
+      <div class="num"><b><span data-count="12">0</span></b><span class="tech" data-i18n="num.4">лет в общепите</span></div>
     </section>
 
-    <!-- ============ RIBBON ============ -->
-    <div class="ribbon" aria-hidden="true"><div class="ribbon__track" id="ticker2"></div></div>
-
-    <!-- ============ BELIEF ============ -->
-    <section class="belief" id="about" data-sc="03" data-scene="manifesto">
-      <div class="belief__head">
-        <h2 class="h2"><span data-i18n="belief.l1">Мы верим, что контент —</span><em data-i18n="belief.l2">это внимание</em></h2>
-        <div class="belief__text">
-          <p data-i18n="belief.p1">Spainov — это не «веду Instagram». Это идея, съёмка, монтаж, публикация и внимание, которое остаётся. Reels, которые смотрят до конца, визуал, который узнают, и сайты, которые продолжают бренд.</p>
-          <p data-i18n="belief.p2">12 лет в общепите — поэтому рестораны, кейтеринг и сервис я снимаю изнутри: знаю, где свет, где вкус и где момент. Снимаю на телефон так, что это выглядит как кино.</p>
-        </div>
-      </div>
-      <div class="belief__photos">
-        <figure class="ph ph--1"><div class="media" data-media="b1" data-ratio="4/5"></div><figcaption class="tech" data-i18n="belief.c1">ЗА КАМЕРОЙ · КУХНЯ</figcaption></figure>
-        <figure class="ph ph--2"><div class="media" data-media="b2" data-ratio="4/5"></div><figcaption class="tech" data-i18n="belief.c2">ОБОРУДОВАНИЕ · 5 МИНУТ НА СБОРКУ</figcaption></figure>
-        <figure class="ph ph--3"><div class="media" data-media="b3" data-ratio="4/5"></div><figcaption class="tech" data-i18n="belief.c3">КОНЦЕРТ · ЖИВОЙ ЗВУК</figcaption></figure>
-        <figure class="ph ph--4"><div class="media" data-media="b4" data-ratio="4/5"></div><figcaption class="tech" data-i18n="belief.c4">РЕСТОРАН · ВКУС В КАДРЕ</figcaption></figure>
-      </div>
-      <div class="stats">
-        <div class="stat"><b><span data-count="4000">0</span>+</b><span class="tech" data-i18n="stat.1">ОТСНЯТЫХ ВИДЕО</span></div>
-        <div class="stat"><b><span data-count="200">0</span>+</b><span class="tech" data-i18n="stat.2">ПРОЕКТОВ ДЛЯ БИЗНЕСА И ЛЮДЕЙ</span></div>
-        <div class="stat"><b><span data-count="7">0</span><small data-i18n="stat.3s"> лет</small></b><span class="tech" data-i18n="stat.3">В SMM · С 2019 ГОДА</span></div>
-      </div>
+    <!-- WORK -->
+    <section class="work" id="work">
+      <header class="sec-head">
+        <span class="sec-num tech">(01)</span>
+        <h2 class="sec-title"><span data-i18n="work.t">Избранные работы</span></h2>
+        <a class="sec-link tech" href="https://www.instagram.com/spainov.ilyas/" target="_blank" rel="noopener" data-cursor="OPEN"><span data-i18n="work.all">Все работы в Instagram</span> ↗</a>
+      </header>
+      <div class="work__grid" id="workGrid"></div>
     </section>
 
-    <!-- ============ HITS ============ -->
-    <section class="hits" id="hits" data-sc="04" data-scene="showreel">
-      <div class="hits__head">
-        <h2 class="h2"><span data-i18n="hits.l1">Хиты</span> <em>Spainov</em></h2>
-        <div class="hits__progress tech"><span id="hitsCur">01</span><i><b id="hitsBar"></b></i><span id="hitsTotal">12</span></div>
-      </div>
-      <p class="hits__sub tech" data-i18n="hits.sub">ТО, ЧТО СМОТРЯТ ДО КОНЦА. ЛИСТАЙТЕ →</p>
-      <div class="hits__scroller" id="hitsScroller">
-        <div class="hits__track" id="hitsTrack"></div>
-      </div>
+    <!-- SERVICES -->
+    <section class="services" id="services">
+      <header class="sec-head">
+        <span class="sec-num tech">(02)</span>
+        <h2 class="sec-title"><span data-i18n="serv.t">Что я делаю</span></h2>
+        <p class="sec-sub" data-i18n="serv.sub">Три направления, которые закрывают весь digital бизнеса: от первого кадра до сайта.</p>
+      </header>
+      <div class="acc" id="services-list"></div>
     </section>
 
-    <!-- ============ STEPS ============ -->
-    <section class="steps" id="steps" data-sc="05" data-scene="onset">
-      <div class="steps__head">
-        <span class="tech steps__eyebrow" data-i18n="steps.eyebrow">СЪЁМКА НА ВАШЕЙ ЛОКАЦИИ</span>
-        <h2 class="h2 h2--xl"><span>Spainov</span><em data-i18n="steps.l2">едет к вам</em></h2>
-      </div>
-      <ol class="steps__list">
-        <li><b>1</b><span data-i18n="steps.1">Пишете в WhatsApp — обсуждаем задачу, формат и дату</span></li>
-        <li><b>2</b><span data-i18n="steps.2">Снимаю у вас: ресторан, офис, событие, продукт, люди</span></li>
-        <li><b>3</b><span data-i18n="steps.3">Получаете готовые Reels, контент для соцсетей или сайт</span></li>
+    <!-- PROCESS -->
+    <section class="process" id="process">
+      <header class="sec-head">
+        <span class="sec-num tech">(03)</span>
+        <h2 class="sec-title"><span data-i18n="proc.t">Как проходит работа</span></h2>
+      </header>
+      <ol class="process__list">
+        <li><span class="tech">01</span><h3 data-i18n="proc.1t">Запрос</h3><p data-i18n="proc.1p">Пишете в WhatsApp. Обсуждаем задачу, формат, бюджет и дату — обычно в тот же день.</p></li>
+        <li><span class="tech">02</span><h3 data-i18n="proc.2t">Идея</h3><p data-i18n="proc.2p">Сценарий и референсы под вашу аудиторию. Для соцсетей — контент-план, для сайта — структура.</p></li>
+        <li><span class="tech">03</span><h3 data-i18n="proc.3t">Съёмка</h3><p data-i18n="proc.3p">На вашей локации: оборудование собирается за 5 минут, за одну смену — до 8 видео.</p></li>
+        <li><span class="tech">04</span><h3 data-i18n="proc.4t">Результат</h3><p data-i18n="proc.4p">Монтаж, субтитры, обложки, публикация. Вы получаете контент, который работает.</p></li>
       </ol>
-      <a class="pill pill--primary pill--lg" href="https://wa.me/77077013718?text=%D0%98%D0%BB%D1%8C%D1%8F%D1%81%2C%20%D1%85%D0%BE%D1%87%D1%83%20%D0%BE%D0%B1%D1%81%D1%83%D0%B4%D0%B8%D1%82%D1%8C%20%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82." target="_blank" rel="noopener" data-cursor="OPEN" data-magnetic><i class="ico ico--cam"></i><span data-i18n="steps.cta">НАПИСАТЬ В WHATSAPP</span></a>
-      <p class="steps__note tech" data-i18n="steps.note">ЗАЯВКИ ПРИНИМАЮТСЯ В WHATSAPP · АСТАНА · ВЫЕЗД ПО КАЗАХСТАНУ</p>
-      <div class="steps__bigword" aria-hidden="true"><span>SPAINOV</span><span data-i18n="steps.you">ВЫ</span></div>
     </section>
 
-    <!-- ============ SERVICES (menu) ============ -->
-    <section class="menu-s" id="services" data-sc="06" data-scene="production">
-      <div class="menu-s__head">
-        <h2 class="h2"><span data-i18n="serv.l1">Мои</span> <em data-i18n="serv.l2">услуги</em></h2>
-        <p class="lead" data-i18n="serv.sub">Три направления — один человек. Выберите раздел и напишите в один клик.</p>
-      </div>
-      <div class="tabs" id="servTabs" role="tablist">
-        <button class="tab is-active" type="button" role="tab" data-tab="mobile" data-cursor="OPEN" data-i18n="serv.t1">МОБИЛОГРАФИЯ</button>
-        <button class="tab" type="button" role="tab" data-tab="smm" data-cursor="OPEN" data-i18n="serv.t2">SMM</button>
-        <button class="tab" type="button" role="tab" data-tab="web" data-cursor="OPEN" data-i18n="serv.t3">САЙТЫ</button>
-      </div>
-      <div class="menu-s__list" id="servList"></div>
-      <div class="menu-s__foot">
-        <a class="pill pill--primary" id="servCta" href="https://wa.me/77077013718?text=%D0%98%D0%BB%D1%8C%D1%8F%D1%81%2C%20%D1%85%D0%BE%D1%87%D1%83%20%D0%BE%D0%B1%D1%81%D1%83%D0%B4%D0%B8%D1%82%D1%8C%20%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82." target="_blank" rel="noopener" data-cursor="OPEN" data-magnetic><i class="ico ico--cam"></i><span id="servCtaText">ЗАКАЗАТЬ «МОБИЛОГРАФИЮ»</span></a>
-        <span class="tech tech--dim" data-i18n="serv.note">СТОИМОСТЬ — ПОД ЗАДАЧУ · АКТУАЛЬНЫЙ PRICE В INSTAGRAM HIGHLIGHTS</span>
-      </div>
-    </section>
-
-    <!-- ============ BOOKING ============ -->
-    <section class="book" id="book" data-sc="07" data-scene="casting">
-      <div class="book__intro">
-        <span class="tech steps__eyebrow" data-i18n="book.eyebrow">ЗАЯВКА НА СЪЁМКУ</span>
-        <h2 class="h2"><span data-i18n="book.l1">Оставьте</span><em data-i18n="book.l2">мне место в календаре</em></h2>
-        <p class="lead" data-i18n="book.text">Reels для ресторана, контент для бренда, событие или сайт — оставьте заявку, и я напишу в WhatsApp, чтобы подтвердить дату.</p>
-      </div>
-      <form class="form" id="bookForm" novalidate>
-        <div class="form__seg" role="radiogroup">
-          <label class="seg is-active"><input type="radio" name="dir" value="mobile" checked><span data-i18n="serv.t1">МОБИЛОГРАФИЯ</span></label>
-          <label class="seg"><input type="radio" name="dir" value="smm"><span>SMM</span></label>
-          <label class="seg"><input type="radio" name="dir" value="web"><span data-i18n="serv.t3">САЙТЫ</span></label>
+    <!-- ABOUT -->
+    <section class="about" id="about">
+      <header class="sec-head">
+        <span class="sec-num tech">(04)</span>
+        <h2 class="sec-title"><span data-i18n="about.t">Обо мне</span></h2>
+      </header>
+      <div class="about__grid">
+        <div class="about__portrait">
+          <div class="media" data-media="portrait" data-ratio="4/5"></div>
+          <div class="about__tag tech"><img src="/media/ig/avatar.jpg" alt="">@spainov.ilyas</div>
         </div>
-        <div class="form__grid">
-          <label class="field"><span class="tech" data-i18n="form.name">ИМЯ</span><input type="text" name="name" required autocomplete="name"></label>
-          <label class="field"><span class="tech" data-i18n="form.phone">ТЕЛЕФОН</span><input type="tel" name="phone" required autocomplete="tel" placeholder="+7"></label>
-          <label class="field"><span class="tech" data-i18n="form.date">ДАТА</span><input type="date" name="date"></label>
-          <label class="field"><span class="tech" data-i18n="form.format">ФОРМАТ</span>
-            <select name="format">
-              <option data-i18n="form.f1">Reels / короткие видео</option>
-              <option data-i18n="form.f2">Продукт / меню</option>
-              <option data-i18n="form.f3">Событие</option>
-              <option data-i18n="form.f4">Люди / бизнес</option>
-              <option data-i18n="form.f5">Ведение соцсетей</option>
-              <option data-i18n="form.f6">Сайт / лендинг</option>
-            </select>
-          </label>
-          <label class="field field--wide"><span class="tech" data-i18n="form.wish">ПОЖЕЛАНИЯ</span><textarea name="wish" rows="3"></textarea></label>
+        <div class="about__text">
+          <p class="about__big" data-i18n="about.big">Я Ильяс. Семь лет снимаю и веду соцсети, двенадцать — работал в общепите. Поэтому знаю бизнес изнутри: где свет, где вкус, где момент, который продаёт.</p>
+          <p class="about__p" data-i18n="about.p">Снимаю на телефон так, что это выглядит как кино. Строю визуальные системы, которые узнают в ленте. Делаю сайты как продолжение бренда. Работаю в Астане и выезжаю по Казахстану.</p>
+          <ul class="about__facts">
+            <li><span class="tech" data-i18n="about.f1k">База</span><b data-i18n="about.f1v">Астана, Казахстан</b></li>
+            <li><span class="tech" data-i18n="about.f2k">Индустрии</span><b data-i18n="about.f2v">Рестораны, кейтеринг, медицина, образование, beauty, события</b></li>
+            <li><span class="tech" data-i18n="about.f3k">Лучший reel</span><b data-i18n="about.f3v">407 лайков · 77 комментариев</b></li>
+          </ul>
+          <a class="btn btn--line" href="#contact" data-cursor="OPEN" data-magnetic><span data-i18n="about.cta">Работать вместе</span></a>
         </div>
-        <div class="form__foot">
-          <button class="pill pill--primary pill--lg" type="submit" data-cursor="OPEN" data-magnetic><i class="ico ico--cam"></i><span data-i18n="form.submit">ОТПРАВИТЬ ЗАЯВКУ</span></button>
-          <span class="tech tech--dim"><span data-i18n="form.or">ИЛИ ПОЗВОНИТЕ:</span> <a href="tel:+77077013718">+7 707 701 3718</a></span>
-        </div>
-        <div class="form__done" id="formDone" hidden>
-          <b data-i18n="form.done1">Спасибо!</b>
-          <span data-i18n="form.done2">Заявка открыта в WhatsApp — отправьте сообщение, и я подтвержу дату.</span>
-        </div>
-      </form>
-    </section>
-
-    <!-- ============ CONTACTS (locations) ============ -->
-    <section class="where" id="contacts" data-sc="08" data-scene="contacts">
-      <h2 class="h2"><span data-i18n="where.l1">Где меня</span> <em data-i18n="where.l2">найти</em></h2>
-      <div class="where__grid">
-        <article class="loc">
-          <div class="loc__map"><span class="loc__city">ASTANA</span><span class="tech">51.1694° N · 71.4491° E</span><i class="loc__pin"></i></div>
-          <h3 data-i18n="loc1.title">Съёмка в Астане</h3>
-          <dl>
-            <dt class="tech" data-i18n="loc.addr">ЛОКАЦИЯ</dt><dd data-i18n="loc1.addr">Астана · выезд по Казахстану</dd>
-            <dt class="tech" data-i18n="loc.hours">ОТВЕЧАЮ</dt><dd data-i18n="loc1.hours">ежедневно в WhatsApp</dd>
-            <dt class="tech" data-i18n="loc.phone">ТЕЛЕФОН</dt><dd><a href="tel:+77077013718">+7 707 701 3718</a></dd>
-          </dl>
-          <div class="loc__actions">
-            <a class="pill pill--primary" href="https://wa.me/77077013718?text=%D0%98%D0%BB%D1%8C%D1%8F%D1%81%2C%20%D1%85%D0%BE%D1%87%D1%83%20%D0%BE%D0%B1%D1%81%D1%83%D0%B4%D0%B8%D1%82%D1%8C%20%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82." target="_blank" rel="noopener" data-cursor="OPEN"><span>WHATSAPP</span></a>
-            <a class="pill pill--ghost" href="#book" data-cursor="OPEN"><span data-i18n="loc1.book">ОСТАВИТЬ ЗАЯВКУ</span></a>
-          </div>
-        </article>
-        <article class="loc loc--ig">
-          <div class="loc__map loc__map--ig">
-            <div class="media" data-media="loc-ig" data-ratio="16/9"></div>
-            <img class="loc__avatar" src="/media/ig/avatar.jpg" alt="">
-          </div>
-          <h3>@spainov.ilyas</h3>
-          <dl>
-            <dt class="tech" data-i18n="loc2.k1">ПОДПИСЧИКИ</dt><dd>1 688</dd>
-            <dt class="tech" data-i18n="loc2.k2">HIGHLIGHTS</dt><dd>VIDEO · КЕЙСЫ · PRICE · АФИША · РЕЗУЛЬТАТ · ПРОЦЕСС</dd>
-            <dt class="tech" data-i18n="loc2.k3">ЛУЧШИЙ REEL</dt><dd data-i18n="loc2.v3">407 лайков · 77 комментариев</dd>
-          </dl>
-          <div class="loc__actions">
-            <a class="pill pill--primary" href="https://www.instagram.com/spainov.ilyas/" target="_blank" rel="noopener" data-cursor="OPEN"><span>INSTAGRAM</span></a>
-            <a class="pill pill--ghost" href="#hits" data-cursor="OPEN"><span data-i18n="loc2.hits">СМОТРЕТЬ ХИТЫ</span></a>
-          </div>
-        </article>
       </div>
     </section>
 
-    <!-- ============ FAQ ============ -->
-    <section class="faq" id="faq" data-sc="09" data-scene="qa">
-      <h2 class="h2"><span data-i18n="faq.l1">Частые</span><em data-i18n="faq.l2">вопросы</em></h2>
-      <div class="faq__list" id="faqList"></div>
+    <!-- INSTAGRAM -->
+    <section class="insta" id="insta">
+      <header class="sec-head">
+        <span class="sec-num tech">(05)</span>
+        <h2 class="sec-title"><span data-i18n="ig.t">Последнее в Instagram</span></h2>
+        <a class="sec-link tech" href="https://www.instagram.com/spainov.ilyas/" target="_blank" rel="noopener" data-cursor="OPEN">@spainov.ilyas · 1 688 <span data-i18n="ig.f">подписчиков</span> ↗</a>
+      </header>
+      <div class="insta__rail" id="instaRail"></div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="contact" id="contact">
+      <span class="sec-num tech">(06)</span>
+      <h2 class="contact__title"><span class="line"><span data-i18n="c.l1">Давайте</span></span><span class="line"><span data-i18n="c.l2">сделаем</span></span><span class="line"><em data-i18n="c.l3">что-то стоящее</em></span></h2>
+      <div class="contact__grid">
+        <div>
+          <span class="tech" data-i18n="c.k1">Написать</span>
+          <a class="contact__big" href="https://wa.me/77077013718?text=%D0%98%D0%BB%D1%8C%D1%8F%D1%81%2C%20%D1%85%D0%BE%D1%87%D1%83%20%D0%BE%D0%B1%D1%81%D1%83%D0%B4%D0%B8%D1%82%D1%8C%20%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82." target="_blank" rel="noopener" data-cursor="OPEN">WhatsApp ↗</a>
+          <a class="contact__big" href="tel:+77077013718" data-cursor="OPEN">+7 707 701 3718</a>
+        </div>
+        <div>
+          <span class="tech" data-i18n="c.k2">Соцсети</span>
+          <a class="contact__big" href="https://www.instagram.com/spainov.ilyas/" target="_blank" rel="noopener" data-cursor="OPEN">Instagram ↗</a>
+        </div>
+        <div>
+          <span class="tech" data-i18n="c.k3">Локация</span>
+          <b class="contact__big" data-i18n="c.v3">Астана · весь Казахстан</b>
+          <span class="tech"><span data-i18n="c.time">Местное время</span> <b id="contactTime">--:--</b></span>
+        </div>
+      </div>
     </section>
   </main>
 
-  <!-- ============ FOOTER ============ -->
   <footer class="footer">
-    <div class="fin" id="fin"><span class="fin__word">FIN<i>.</i></span><span class="tech" data-i18n="fin.sub">КОНЕЦ ФИЛЬМА · НАЧАЛО ВАШЕГО</span></div>
-    <div class="footer__big" aria-hidden="true"><em>Spainov</em></div>
-    <div class="footer__cols">
-      <div><span class="tech" data-i18n="ft.k1">АСТАНА</span><b data-i18n="ft.v1">Съёмка · SMM · сайты</b><a href="tel:+77077013718">+7 707 701 3718</a></div>
-      <div><span class="tech">WHATSAPP</span><a href="https://wa.me/77077013718?text=%D0%98%D0%BB%D1%8C%D1%8F%D1%81%2C%20%D1%85%D0%BE%D1%87%D1%83%20%D0%BE%D0%B1%D1%81%D1%83%D0%B4%D0%B8%D1%82%D1%8C%20%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82." target="_blank" rel="noopener" data-cursor="OPEN">wa.me/77077013718 ↗</a></div>
-      <div><span class="tech">INSTAGRAM</span><a href="https://www.instagram.com/spainov.ilyas/" target="_blank" rel="noopener" data-cursor="OPEN">@spainov.ilyas ↗</a></div>
-      <div><span class="tech" data-i18n="ft.k4">НАПРАВЛЕНИЯ</span><b>MOBILEGRAPHY / SMM / WEB</b></div>
-    </div>
-    <div class="footer__bottom tech"><span>© 2026 SPAINOV® · <span data-i18n="ft.city">АСТАНА</span> · EST. 2019</span><span data-i18n="ft.tag">ОДИН ЧЕЛОВЕК. ТРИ МИРА.</span></div>
+    <span class="tech">© 2026 Ilyas Spainov</span>
+    <span class="tech" data-i18n="ft.mid">Мобилография · SMM · Web</span>
+    <a class="tech" href="#top" data-cursor="OPEN" data-i18n="ft.top">Наверх ↑</a>
   </footer>
 
   <script type="module" src="/src/main.js"></script>

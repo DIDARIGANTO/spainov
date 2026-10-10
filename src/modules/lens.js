@@ -271,7 +271,7 @@ export function createLens(canvas, { isMobile = false } = {}) {
     renderer.setSize(w, h, false);
     camera.aspect = w / h;
     camera.updateProjectionMatrix();
-    state.base = Math.min(0.72, Math.max(0.4, camera.aspect * 0.5));
+    state.base = Math.min(0.62, Math.max(0.4, camera.aspect * 0.4));
   }
   resize();
   window.addEventListener('resize', resize);
@@ -369,7 +369,8 @@ export function createLens(canvas, { isMobile = false } = {}) {
     root.rotation.y = baseRy + state.tilt.y + state.drag.ry * (1 - p) + idle;
     root.rotation.z = Math.sin(t * 0.3) * 0.03;
     root.scale.setScalar(state.base);
-    root.position.y = Math.sin(t * 0.7) * 0.06 + 0.55 * (1 - p) + p * 1.2;
+    root.position.y = Math.sin(t * 0.7) * 0.06 - 0.15 + p * 1.6;
+    root.position.x = 1.15 * (1 - p * 0.3);
 
     textRing.rotation.y = t * 0.08 + Math.PI;
 
